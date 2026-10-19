@@ -14,7 +14,7 @@
 * Отображение hover и active эффектов
 * Flexbox
 
-*[Ссылка на репозиторий](https://github.com/Enz0tech/site-2-portfolio/blob/main/image/1920_Landing%20Page_Final.png)*  
+*[Ссылка на репозиторий](https://github.com/Enz0tech/teaboom-test)*  
 *[Ссылка на сайт](https://enz0tech.github.io/site-2-practice/)*
 
 #### Мои контакты:

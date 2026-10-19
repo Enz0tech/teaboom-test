@@ -441,6 +441,11 @@ del {
   background-color: var(--color-blue);
 }
 
+ /*Отключаю приближение экрана при частых тапах */
+.quantity__button {
+  touch-action: manipulation;
+}
+
 /* Ховеры на кнопку выбора количества товара */
 .quantity__button:hover {
   color: var(--color-blue-accent);
@@ -484,19 +489,32 @@ del {
   }
 }
 
-@media screen and (max-width: 376px) {
+@media screen and (max-width: 480px) {
   .tea-card {
     flex-direction: column;
+    row-gap: 20px;
+  }
+
+  .order-form__actions {
+    display: flex;
+    flex-direction: column;
+    row-gap: 10px;
   }
 
   .product-meta {
+    width: 100%;
     display: flex;
-    flex-direction: column;
     align-items: center;
-    row-gap: 15px;
+    row-gap: 10px;
   }
 
   .product-meta-list {
     width: 70%;
+  }
+}
+
+@media screen and (max-width: 380px) {
+  .product-meta {
+    flex-direction: column;
   }
 }

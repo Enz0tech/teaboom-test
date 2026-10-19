@@ -14,7 +14,6 @@
 * Отображение hover и active эффектов
 * Flexbox
 
-*[Ссылка на репозиторий](https://github.com/Enz0tech/teaboom-test)*  
 *[Ссылка на сайт](https://enz0tech.github.io/teaboom-test/)*
 
 #### Мои контакты:

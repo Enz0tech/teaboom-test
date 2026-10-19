@@ -513,7 +513,7 @@ del {
   }
 }
 
-@media screen and (max-width: 380px) {
+@media screen and (max-width: 400px) {
   .product-meta {
     flex-direction: column;
   }

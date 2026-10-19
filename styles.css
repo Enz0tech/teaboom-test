@@ -1,0 +1,502 @@
+/* *
+  Нормализация блочной модели
+ */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+/**
+  Убираем внутренние отступы слева тегам списков,
+  у которых есть атрибут class
+ */
+:where(ul, ol):where([class]) {
+  padding-left: 0;
+}
+
+/**
+  Убираем внешние отступы body и двум другим тегам,
+  у которых есть атрибут class
+ */
+body,
+:where(blockquote, figure):where([class]) {
+  margin: 0;
+}
+
+/**
+  Убираем внешние отступы вертикали нужным тегам,
+  у которых есть атрибут class
+ */
+:where(
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6,
+  p,
+  ul,
+  ol,
+  dl
+):where([class]) {
+  margin-block: 0;
+}
+
+:where(dd[class]) {
+  margin-left: 0;
+}
+
+:where(fieldset[class]) {
+  margin-left: 0;
+  padding: 0;
+  border: none;
+}
+
+/**
+  Убираем стандартный маркер маркированному списку,
+  у которого есть атрибут class
+ */
+:where(ul[class]) {
+  list-style: none;
+}
+
+/**
+  Обнуляем вертикальные внешние отступы параграфа,
+  объявляем локальную переменную для внешнего отступа вниз,
+  чтобы избежать взаимодействие с более сложным селектором
+ */
+p {
+  --paragraphMarginBottom: 24px;
+
+  margin-block: 0;
+}
+
+/**
+  Внешний отступ вниз для параграфа без атрибута class,
+  который расположен не последним среди своих соседних элементов
+ */
+p:where(:not([class]):not(:last-child)) {
+  margin-bottom: var(--paragraphMarginBottom);
+}
+
+
+/**
+  Упрощаем работу с изображениями и видео
+ */
+img,
+video {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+/**
+  Наследуем свойства шрифт для полей ввода
+ */
+input,
+textarea,
+select,
+button {
+  font: inherit;
+}
+
+html {
+  /**
+    Пригодится в большинстве ситуаций
+    (когда, например, нужно будет "прижать" футер к низу сайта)
+   */
+  height: 100%;
+  /**
+    Плавный скролл
+   */
+  scroll-behavior: smooth;
+  /**
+    Убираем скачок интерфейса по горизонтали при появлении / исчезновении скроллбара
+    */
+  scrollbar-gutter: stable;
+}
+
+body {
+  /**
+    Пригодится в большинстве ситуаций
+    (когда, например, нужно будет "прижать" футер к низу сайта)
+   */
+  min-height: 100%;
+  /**
+    Унифицированный интерлиньяж
+   */
+  line-height: 1.5;
+}
+
+/**
+  Нормализация высоты элемента ссылки при инспектировании в DevTools
+  */
+a:where([class]) {
+  display: inline-flex;
+}
+
+/**
+  Курсора-рука при наведении на элемент
+  */
+button,
+label {
+  cursor: pointer;
+}
+
+/**
+  Приводим к единому цвету svg-элементы
+ */
+svg *[fill] { fill: currentColor }
+svg *[stroke] { stroke: currentColor }
+
+/**
+  Чиним баг задержки смены цвета при взаимодействии с svg-элементами
+ */
+svg * {
+  transition-property: fill, stroke;
+}
+
+/**
+  Удаляем все анимации и переходы для людей,
+  которые предпочитают их не использовать
+ */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Контейнер */
+.container {
+  max-width: calc(var(--container-width) + var(--container-padding-x) * 2);
+  width: 100%;
+  margin-inline: auto;
+  padding-inline: var(--container-padding-x);
+}
+
+/* Шрифты */
+@font-face {
+  font-family: "Space Grotesk";
+  src: url(./fonts/SpaceGrotesk-Regular.woff2) format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Space Grotesk Medium";
+  src: url(./fonts/SpaceGrotesk-Medium.woff2) format("woff2");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* Переменные */
+:root {
+  --color-light: #FFFFFF;
+  --color-dark: #141414;
+  --color-dark-10: #1A1A1A ;
+  --color-dark-15: #262626;
+  --color-dark-20: #333333;
+  --color-dark-40: #666666;
+  --color-gray-50: #7E7E81;
+  --color-gray-60: #98989A;
+  --color-gray-70: #f5f5f5;
+  --color-accent: #FFD11A;
+  --color-red: #FF5500;
+  --color-blue:  rgb(0, 116, 225);
+  --color-blue-accent: rgb(82, 167, 247);
+  --border: 1px solid var(--color-blue);
+  --border-radius: 8px;
+  --font-family-base: "Space Grotesk", sans-serif;
+  --font-family-accent: "Space Grotesk Medium", sans-serif;
+  --container-width: 1440px;
+  --container-padding-x: 20px;
+  --transition-duration: 0.2s;
+}
+
+/* Утилитарные классы */
+.container {
+  max-width: calc(var(--container-width) + var(--container-padding-x) * 2);
+  margin-inline: auto;
+  padding-inline: var(--container-padding-x);
+}
+
+.visually-hidden {
+  position: absolute !important;
+  width: 1px !important;
+  height: 1px !important;
+  margin: -1px !important;
+  border: 0 !important;
+  padding: 0 !important;
+  white-space: nowrap !important;
+  clip-path: inset(100%) !important;
+  clip: rect(0 0 0 0) !important;
+  overflow: hidden !important;
+}
+
+body {
+  font-family: var(--font-family-base);
+  font-size: 16px;
+  color: var(--color-dark-20);
+}
+
+/* Заголовки */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  color: var(--color-dark-15);
+  font-family: var(--font-family-accent);
+}
+
+h2 {
+  font-size: 36px;
+}
+
+h3 {
+  font-size: 26px;
+}
+
+h4, .h4 {
+  font-size: 18px;
+  font-weight: 500;
+}
+
+/* Плавность элементов */
+a,
+button,
+label,
+input,
+textarea,
+select,
+svg * {
+  transition-duration: var(--transition-duration);
+  user-select: none;
+}
+
+/* Кнопка */
+.button {
+  justify-content: center;
+  padding: 10px 30px;
+  font-size: inherit;
+  color: var(--color-light);
+  background-color: var(--color-blue);
+  border: var(--border);
+  border-radius: 8px;
+}
+
+/* Полоса на старой цене */
+del {
+  text-decoration-color: var(--color-red);
+}
+
+.tea {
+  margin-top: 50px;
+}
+
+.tea-card {
+  display: flex;
+  justify-content: start;
+  column-gap: 100px;
+  margin-bottom: 50px;
+}
+
+.tea-card__image {
+  padding: 10px;
+  border-radius: var(--border-radius);
+}
+
+.order-form__title {
+  margin-bottom: 20px;
+}
+
+.product-meta {
+  display: flex;
+  column-gap: 45px;
+}
+
+.product-meta-list {
+  display: flex;
+  flex-direction: column;
+  row-gap: 25px;
+}
+
+.order-form__radio-label {
+  position: relative;
+  display: flex;
+  justify-content: space-around;
+  column-gap: 15px;
+  border: var(--border);
+  padding: 5px;
+  border-radius: var(--border-radius);
+}
+
+.order-form__radio-label:before {
+  content: attr(data-vendor);
+  position: absolute;
+  top: -16px;
+  left: 0px;
+  font-size: 12px;
+  color: var(--color-gray-60);
+}
+
+.order-form__actions {
+  display: flex;
+  flex-direction: column;
+  row-gap: 15px;
+  width: 180px;
+  max-width: 100%;
+}
+
+.order-form__current-price {
+  font-size: 22px;
+}
+
+.quantity {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  border: var(--border);
+  border-radius: 8px;
+  overflow: hidden;
+  background-color: var(--color-light);
+  font-size: 20px;
+}
+
+/* Скрываю стрелочки стандартные */
+.quantity__input::-webkit-outer-spin-button,
+.quantity__input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.quantity__button {
+  width: 40px;
+  height: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: none;
+  border: none;
+  font-size: 18px;
+  color: var(--color-blue);
+  cursor: pointer;
+}
+
+.tea-card__description {
+  display: flex;
+  flex-direction: column;
+  row-gap: 15px;
+  border: var(--border);
+  border-radius: var(--border-radius);
+  padding: 15px;
+}
+
+.description__wrapper {
+  display: flex;
+  flex-direction: column;
+  row-gap: 10px;
+}
+
+.description__summary {
+  cursor: pointer;
+  padding: 10px 0;
+}
+
+.description__content {
+  padding: 15px;
+  border-top: var(--border);
+  border-radius: 0 0 8px 8px;
+  background-color: var(--color-gray-70);
+}
+
+/* Ховеры от залипания на мобилке тоже */
+@media (any-hover: hover) {
+  .button:hover {
+    color: var(--color-light);
+    background-color: var(--color-blue-accent);
+    border-color: var(--color-blue-accent);
+  }
+
+  .order-form__radio-label:hover {
+    color: var(--color-light);
+    background-color: var(--color-blue-accent);
+    border-color: var(--color-blue-accent);
+  }
+}
+
+.button:active {
+  color: var(--color-light);
+  background-color: var(--color-blue); 
+}
+
+.order-form__radio-label:active {
+  color: var(--color-light);
+  background-color: var(--color-blue);
+}
+
+/* Ховеры на кнопку выбора количества товара */
+.quantity__button:hover {
+  color: var(--color-blue-accent);
+}
+
+.quantity__button:disabled {
+  opacity: 0.3;        
+  cursor: not-allowed;
+}
+
+/* Ховеры на описание */
+.description__summary:hover {
+  background-color: var(--color-light-gray, #f5f5f5);
+}
+
+.description__summary::marker {
+  color: var(--color-blue-accent); 
+}
+
+/* медиа запросы */
+@media screen and (max-width: 768px) {
+  .tea-card {
+    column-gap: 30px;
+  }
+
+  .product-meta {
+    column-gap: 30px;
+  }
+
+  .product-meta-list {
+    width: 100%;
+  }
+
+  .order-form__price-box {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .button {
+    padding: 10px;
+  }
+}
+
+@media screen and (max-width: 376px) {
+  .tea-card {
+    flex-direction: column;
+  }
+
+  .product-meta {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    row-gap: 15px;
+  }
+
+  .product-meta-list {
+    width: 70%;
+  }
+}

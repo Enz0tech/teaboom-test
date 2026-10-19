@@ -346,6 +346,10 @@ del {
   color: var(--color-gray-60);
 }
 
+.order-form__radio-label:has(.weight:checked) {
+  background-color: var(--color-blue-accent);
+}
+
 .order-form__actions {
   display: flex;
   flex-direction: column;
@@ -434,6 +438,11 @@ del {
 .button:active {
   color: var(--color-light);
   background-color: var(--color-blue); 
+}
+
+/* Отключаю дефолтную серую вспышку на iOS */
+.order-form__radio-label {
+  -webkit-tap-highlight-color: transparent; 
 }
 
 .order-form__radio-label:active {

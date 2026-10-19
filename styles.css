@@ -504,17 +504,12 @@ del {
   .product-meta {
     width: 100%;
     display: flex;
+    flex-direction: column;
     align-items: center;
     row-gap: 10px;
   }
 
   .product-meta-list {
     width: 70%;
-  }
-}
-
-@media screen and (max-width: 400px) {
-  .product-meta {
-    flex-direction: column;
   }
 }

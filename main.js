@@ -42,7 +42,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     if (oldPriceContainer && mainOldPrice) {
-      // беру текст из элемента с атрибутом data-old-price, если  его нет беру текст из тега del
+      // беру текст из элемента с атрибутом data-old-price, если его нет беру текст из тега del
       const oldPriceBase = parseFloat(activeRadio.getAttribute('data-old-price')) || parseFloat(oldPriceContainer.textContent) || 0
       let totalOldPrice = oldPriceBase * value
       mainOldPrice.textContent = totalOldPrice.toLocaleString('ru-RU') + ' ₽'
@@ -87,15 +87,14 @@ document.addEventListener('DOMContentLoaded', () => {
       else if (value > max) {
         input.value = max
       }
-
       updatePricesAndButtons(container)
-    }
+    })
 
-    // Стартовый запуск при загрузке страницы для настройки кнопок
+    // Стартовый запуск при загрузке страницы для настройки кнопок и цен конкретного контейнера
     updatePricesAndButtons(container)
   })
 
-  // Выбор веса и пересчёт цены  при изменении
+  // Выбор веса и пересчёт цены при изменении
   form.addEventListener('change', (event) => {
     if (event.target.name === 'weight') {
       // Когда пользователь меняет вес, нам нужно пересчитать цены с учетом текущего количества штук
@@ -106,8 +105,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   })
 
-
-    // --- AJAX ОТПРАВКА В КОРЗИНУ ---
+  //  Ajax отправка в корзину на сервер
   form.addEventListener('submit', async (event) => {
     // 1. Отменяю перезагрузку страницы браузером
     event.preventDefault()
@@ -126,7 +124,6 @@ document.addEventListener('DOMContentLoaded', () => {
       submitBtn.textContent = 'Добавление...'
 
       // Отправляю запрос на сервер
-      // Тут надо заменить '/api/cart/add' на реальный URL бэкенда
       const response = await fetch('/api/cart/add', {
         method: 'POST',
         body: formData // Отправка данных с формы
@@ -148,7 +145,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }, 2000)
 
       } else {
-        throw new Error('Ошибка сервера') //Иначе ошибка, прокидываю её через кэтч
+        throw new Error('Ошибка сервера') // Иначе ошибка, прокидываю её через кэтч
       }
 
     } catch (error) {
@@ -163,10 +160,3 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   })
 })
-
-
-
-
-
-
-
